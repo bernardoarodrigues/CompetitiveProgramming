@@ -1,37 +1,31 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-set<int> r;
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
 
-int main(void) {
-    int x=0, n=0;
-    cin >> x >> n;
-    r.insert(x);
+	int street_len;
+	int light_num;
+	cin >> street_len >> light_num;
 
-    for(int i=0; i<n; i++) {
-        int s=0;
-        scanf("%d", &s);
-        r.insert(s);
+	set<int> lights{0, street_len};
+	multiset<int> dist{street_len};
+	for (int l = 0; l < light_num; l++) {
+		int pos;
+		cin >> pos;
 
-        int cmax=0, a=0;
-        auto it = r.begin();
-        for(int i=0; i<r.size(); i++) {
-            /*int c=0;
+		auto it1 = lights.upper_bound(pos);
+		auto it2 = it1;
+		--it2;
 
-            c = *it - a;
-            
-            if(c > cmax) {
-                cmax = c;
-            }
+		dist.erase(dist.find(*it1 - *it2));
+		dist.insert(pos - *it2);
+		dist.insert(*it1 - pos);
+		lights.insert(pos);
 
-            a = *it;*/
-            printf("%d ", *it);
-            it++;
-        }
-
-        cout << cmax << " ";
-    }
-
-    
-    return 0;
+		auto ans = dist.end();
+		--ans;
+		cout << *ans << " ";
+	}
 }
